@@ -1,0 +1,49 @@
+{
+  "i18n": true,
+  "type": "panel",
+  "items": {
+    "hdr": {
+      "type": "header",
+      "text": "NWPM Touch gateway",
+      "size": 3
+    },
+    "host": {
+      "type": "text",
+      "label": "IP address of the heat pump / gateway",
+      "help": "Visible on the heat pump display or in your router (hostname pcoweb…)",
+      "xs": 12,
+      "sm": 6,
+      "md": 4
+    },
+    "port": {
+      "type": "port",
+      "label": "MQTT port",
+      "default": 61894,
+      "min": 1,
+      "max": 65535,
+      "xs": 12,
+      "sm": 6,
+      "md": 4
+    },
+    "password": {
+      "type": "password",
+      "label": "Gateway password",
+      "help": "Heat pump display: Analytics → Hardware and software → Network → Gateway access (user name is always 'mqtt')",
+      "newLine": true,
+      "xs": 12,
+      "sm": 12,
+      "md": 8
+    },
+    "pollInterval": {
+      "type": "number",
+      "label": "Poll interval (seconds)",
+      "help": "Live values are pushed immediately; settings, counters and runtimes are polled",
+      "min": 15,
+      "default": 60,
+      "newLine": true,
+      "xs": 12,
+      "sm": 6,
+      "md": 4
+    }
+  }
+}

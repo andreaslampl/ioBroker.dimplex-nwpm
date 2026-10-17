@@ -1,0 +1,28 @@
+{
+  "name": "iobroker.dimplex-nwpm",
+  "version": "0.1.0",
+  "description": "Dimplex heat pumps (System M / NWPM Touch) via local MQTT for ioBroker",
+  "author": "andreaslampl",
+  "license": "MIT",
+  "homepage": "https://github.com/andreaslampl/ioBroker.dimplex-nwpm",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andreaslampl/ioBroker.dimplex-nwpm.git"
+  },
+  "bugs": {
+    "url": "https://github.com/andreaslampl/ioBroker.dimplex-nwpm/issues"
+  },
+  "keywords": ["ioBroker", "Dimplex", "heat pump", "Wärmepumpe", "System M", "NWPM", "MQTT"],
+  "main": "main.js",
+  "files": ["admin/", "lib/", "main.js", "io-package.json", "LICENSE", "README.md"],
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@iobroker/adapter-core": "^3.2.3",
+    "mqtt": "^5.10.4"
+  },
+  "scripts": {
+    "test": "node --test --test-timeout=20000 test/*.test.js"
+  }
+}

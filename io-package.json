@@ -1,0 +1,353 @@
+{
+  "common": {
+    "name": "dimplex-nwpm",
+    "version": "0.1.0",
+    "news": {
+      "0.1.0": {
+        "en": "Initial release",
+        "de": "Erste Version"
+      }
+    },
+    "titleLang": {
+      "en": "Dimplex heat pump (NWPM / System M)",
+      "de": "Dimplex Wärmepumpe (NWPM / System M)"
+    },
+    "desc": {
+      "en": "Local connection to Dimplex heat pumps with NWPM Touch or System M via the gateway's MQTT broker, no cloud",
+      "de": "Lokale Anbindung von Dimplex Wärmepumpen mit NWPM Touch oder System M über den MQTT-Broker des Gateways, ohne Cloud"
+    },
+    "authors": [
+      "andreaslampl"
+    ],
+    "license": "MIT",
+    "platform": "Javascript/Node.js",
+    "mode": "daemon",
+    "icon": "dimplex-nwpm.png",
+    "extIcon": "https://raw.githubusercontent.com/andreaslampl/ioBroker.dimplex-nwpm/main/admin/dimplex-nwpm.png",
+    "readme": "https://github.com/andreaslampl/ioBroker.dimplex-nwpm/blob/main/README.md",
+    "enabled": true,
+    "type": "climate-control",
+    "compact": true,
+    "connectionType": "local",
+    "dataSource": "push",
+    "adminUI": {
+      "config": "json"
+    },
+    "tier": 2,
+    "dependencies": [
+      {
+        "js-controller": ">=5.0.19"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=6.0.0"
+      }
+    ]
+  },
+  "native": {
+    "host": "",
+    "port": 61894,
+    "password": "",
+    "pollInterval": 60
+  },
+  "encryptedNative": [
+    "password"
+  ],
+  "protectedNative": [
+    "password"
+  ],
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "info",
+      "type": "channel",
+      "common": {
+        "name": "Information"
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.connection",
+      "type": "state",
+      "common": {
+        "name": {
+          "en": "Connected to gateway",
+          "de": "Mit Gateway verbunden"
+        },
+        "type": "boolean",
+        "role": "indicator.connected",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.serial",
+      "type": "state",
+      "common": {
+        "name": {
+          "en": "Heat pump serial number",
+          "de": "Seriennummer Wärmepumpe"
+        },
+        "type": "string",
+        "role": "info.serial",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.applianceType",
+      "type": "state",
+      "common": {
+        "name": {
+          "en": "Heat pump type",
+          "de": "Wärmepumpentyp"
+        },
+        "type": "string",
+        "role": "info.name",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.softwareVersion",
+      "type": "state",
+      "common": {
+        "name": {
+          "en": "WPM software version",
+          "de": "WPM-Softwareversion"
+        },
+        "type": "string",
+        "role": "info.firmware",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.wpmType",
+      "type": "state",
+      "common": {
+        "name": {
+          "en": "Heat pump manager type",
+          "de": "Wärmepumpenmanager-Typ"
+        },
+        "type": "string",
+        "role": "text",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.gatewaySerial",
+      "type": "state",
+      "common": {
+        "name": {
+          "en": "Gateway serial number",
+          "de": "Seriennummer Gateway"
+        },
+        "type": "string",
+        "role": "info.serial",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.gatewayModel",
+      "type": "state",
+      "common": {
+        "name": {
+          "en": "Gateway model",
+          "de": "Gateway-Modell"
+        },
+        "type": "string",
+        "role": "text",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.gatewayFirmware",
+      "type": "state",
+      "common": {
+        "name": {
+          "en": "Gateway firmware",
+          "de": "Gateway-Firmware"
+        },
+        "type": "string",
+        "role": "info.firmware",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.applianceConnected",
+      "type": "state",
+      "common": {
+        "name": {
+          "en": "Heat pump connected to gateway",
+          "de": "Wärmepumpe mit Gateway verbunden"
+        },
+        "type": "boolean",
+        "role": "indicator.connected",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.cloudConnected",
+      "type": "state",
+      "common": {
+        "name": {
+          "en": "Cloud connected",
+          "de": "Cloud verbunden"
+        },
+        "type": "boolean",
+        "role": "indicator.connected",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.internetConnected",
+      "type": "state",
+      "common": {
+        "name": {
+          "en": "Internet connected",
+          "de": "Internet verbunden"
+        },
+        "type": "boolean",
+        "role": "indicator.connected",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.lastFaultCode",
+      "type": "state",
+      "common": {
+        "name": {
+          "en": "Last fault (code)",
+          "de": "Letzte Störung (Code)"
+        },
+        "type": "number",
+        "role": "value",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.lastFaultTime",
+      "type": "state",
+      "common": {
+        "name": {
+          "en": "Time of last fault",
+          "de": "Zeitpunkt letzte Störung"
+        },
+        "type": "string",
+        "role": "date",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.lastLockCode",
+      "type": "state",
+      "common": {
+        "name": {
+          "en": "Last lock (code)",
+          "de": "Letzte Sperre (Code)"
+        },
+        "type": "number",
+        "role": "value",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.lastLockTime",
+      "type": "state",
+      "common": {
+        "name": {
+          "en": "Time of last lock",
+          "de": "Zeitpunkt letzte Sperre"
+        },
+        "type": "string",
+        "role": "date",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.faultHistory",
+      "type": "state",
+      "common": {
+        "name": {
+          "en": "Fault history",
+          "de": "Störungshistorie"
+        },
+        "type": "string",
+        "role": "json",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.lockHistory",
+      "type": "state",
+      "common": {
+        "name": {
+          "en": "Lock history",
+          "de": "Sperrhistorie"
+        },
+        "type": "string",
+        "role": "json",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "control",
+      "type": "channel",
+      "common": {
+        "name": {
+          "en": "Control",
+          "de": "Steuerung"
+        }
+      },
+      "native": {}
+    },
+    {
+      "_id": "control.syncTime",
+      "type": "state",
+      "common": {
+        "name": {
+          "en": "Set heat pump clock to ioBroker time",
+          "de": "Uhrzeit der Wärmepumpe stellen"
+        },
+        "type": "boolean",
+        "role": "button",
+        "read": false,
+        "write": true
+      },
+      "native": {}
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "NWPM Touch gateway": "NWPM Touch Gateway",
+  "IP address of the heat pump / gateway": "IP-Adresse der Wärmepumpe / des Gateways",
+  "Visible on the heat pump display or in your router (hostname pcoweb…)": "Steht im Display der Wärmepumpe oder im Router (Gerätename pcoweb…)",
+  "MQTT port": "MQTT-Port",
+  "Gateway password": "Gateway-Passwort",
+  "Heat pump display: Analytics → Hardware and software → Network → Gateway access (user name is always 'mqtt')": "Display der Wärmepumpe: Analyse → Hard- und Software → Netzwerk → Gateway-Zugang (Benutzername ist immer 'mqtt')",
+  "Poll interval (seconds)": "Abfrageintervall (Sekunden)",
+  "Live values are pushed immediately; settings, counters and runtimes are polled": "Aktuelle Werte kommen sofort; Einstellungen, Zähler und Laufzeiten werden abgefragt"
+}
