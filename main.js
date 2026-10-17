@@ -2,7 +2,7 @@
 
 const utils = require('@iobroker/adapter-core');
 const { DATAPOINTS } = require('./lib/datapoints');
-const { NwpmClient, HeatPump, DEFAULT_PORT, TOPIC_ERROR_HISTORY, TOPIC_LOCK_HISTORY, TOPIC_TWIN } = require('./lib/nwpm');
+const { NwpmClient, HeatPump, resetLocalPassword, DEFAULT_PORT, TOPIC_ERROR_HISTORY, TOPIC_LOCK_HISTORY, TOPIC_TWIN } = require('./lib/nwpm');
 
 const CATEGORIES = {
     sensors: { en: 'Sensors', de: 'Messwerte' },
@@ -207,10 +207,18 @@ class DimplexNwpm extends utils.Adapter {
     }
 
     async onStateChange(id, state) {
-        if (!state || state.ack || !this.heatPump) {
+        if (!state || state.ack) {
             return;
         }
         const local = id.slice(this.namespace.length + 1);
+        if (local === 'control.resetPassword') {
+            await this.resetPassword();
+            await this.setState(local, false, true);
+            return;
+        }
+        if (!this.heatPump) {
+            return;
+        }
         if (local === 'control.syncTime') {
             try {
                 await this.heatPump.setTime();
@@ -235,6 +243,34 @@ class DimplexNwpm extends utils.Adapter {
         // Acknowledge with the value the heat pump actually reports.
         this.written.delete(local);
         await this.writeState(local, this.heatPump.value(key));
+    }
+
+    async resetPassword() {
+        const host = (this.config.host || '').trim();
+        if (!host) {
+            this.log.error('Password reset: please configure the IP address first');
+            return;
+        }
+        this.log.info(`Password reset: connecting to ${host}:61890 (only open for about 10 minutes after the heat pump restarts)`);
+        let result;
+        try {
+            const reply = await resetLocalPassword({ host, connect: this.mqttConnect, log: this.log });
+            const status = Number(reply.status || 0);
+            if (status === 0 && !reply.raw) {
+                result = 'OK - password reset to the default. Enter the default password (Dimplex Home app) in the settings and restart the adapter.';
+                this.log.info(`Password reset: ${result}`);
+            } else {
+                result = `Gateway answered: ${JSON.stringify(reply)}`;
+                this.log.warn(`Password reset: ${result}`);
+            }
+        } catch (err) {
+            const closed = /ECONNREFUSED|ETIMEDOUT|No answer/.test(err.message);
+            result = closed
+                ? `Reset port is closed (${err.message}). Restart the heat pump and press the button within 10 minutes.`
+                : `Failed: ${err.message}`;
+            this.log.warn(`Password reset: ${result}`);
+        }
+        await this.setState('info.lastResetResult', result, true);
     }
 
     async onUnload(callback) {
