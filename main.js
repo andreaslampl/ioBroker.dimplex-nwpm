@@ -41,6 +41,7 @@ class DimplexNwpm extends utils.Adapter {
 
         this.on('ready', this.onReady.bind(this));
         this.on('stateChange', this.onStateChange.bind(this));
+        this.on('message', this.onMessage.bind(this));
         this.on('unload', this.onUnload.bind(this));
     }
 
@@ -245,19 +246,33 @@ class DimplexNwpm extends utils.Adapter {
         await this.writeState(local, this.heatPump.value(key));
     }
 
-    async resetPassword() {
-        const host = (this.config.host || '').trim();
-        if (!host) {
-            this.log.error('Password reset: please configure the IP address first');
+    /** Handle the reset button of the settings page (sendTo). */
+    async onMessage(obj) {
+        if (!obj || obj.command !== 'resetPassword') {
             return;
+        }
+        const host = ((obj.message && obj.message.host) || this.config.host || '').trim();
+        const { ok, text } = await this.resetPassword(host);
+        if (obj.callback) {
+            this.sendTo(obj.from, obj.command, ok ? { result: text } : { error: text }, obj.callback);
+        }
+    }
+
+    async resetPassword(host = (this.config.host || '').trim()) {
+        if (!host) {
+            const text = 'Please enter the IP address first';
+            this.log.error(`Password reset: ${text}`);
+            return { ok: false, text };
         }
         this.log.info(`Password reset: connecting to ${host}:61890 (only open for about 10 minutes after the heat pump restarts)`);
         let result;
+        let ok = false;
         try {
             const reply = await resetLocalPassword({ host, connect: this.mqttConnect, log: this.log });
             const status = Number(reply.status || 0);
             if (status === 0 && !reply.raw) {
-                result = 'OK - password reset to the default. Enter the default password (Dimplex Home app) in the settings and restart the adapter.';
+                ok = true;
+                result = 'OK - password reset to the default. Enter the default password (Dimplex Home app) in the settings and save.';
                 this.log.info(`Password reset: ${result}`);
             } else {
                 result = `Gateway answered: ${JSON.stringify(reply)}`;
@@ -271,6 +286,7 @@ class DimplexNwpm extends utils.Adapter {
             this.log.warn(`Password reset: ${result}`);
         }
         await this.setState('info.lastResetResult', result, true);
+        return { ok, text: result };
     }
 
     async onUnload(callback) {

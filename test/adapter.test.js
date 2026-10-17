@@ -29,6 +29,9 @@ class FakeAdapter extends EventEmitter {
         return { common: { language: 'de' } };
     }
     subscribeStates() {}
+    sendTo(to, command, message, callback) {
+        callback(message);
+    }
     setInterval(fn, ms) {
         return setInterval(fn, ms);
     }
@@ -171,4 +174,15 @@ test('wrong password is reported once and not retried', async () => {
     await until(() => adapter.warnings.length);
     assert.match(adapter.warnings[0], /rejected the credentials/);
     await new Promise(resolve => adapter.emit('unload', resolve));
+});
+
+test('reset button in the settings answers with the result', async () => {
+    // Nothing listens on 127.0.0.1:61890 here, so the reset port counts as closed.
+    const adapter = require('../main.js')({ config: { host: '127.0.0.1', password: 'x' } });
+    const reply = await new Promise(resolve =>
+        adapter.onMessage({ command: 'resetPassword', message: { host: '127.0.0.1' }, from: 'admin', callback: resolve }),
+    );
+    assert.ok(reply.error, JSON.stringify(reply));
+    assert.match(reply.error, /Reset port is closed/);
+    assert.match(adapter.states['info.lastResetResult'].val, /Reset port is closed/);
 });

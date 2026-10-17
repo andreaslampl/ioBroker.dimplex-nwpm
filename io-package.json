@@ -1,8 +1,12 @@
 {
   "common": {
     "name": "dimplex-nwpm",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "news": {
+      "0.2.1": {
+        "en": "Reset button in the instance settings, no port conflict warning",
+        "de": "Reset-Knopf in den Instanz-Einstellungen, keine falsche Port-Warnung mehr"
+      },
       "0.2.0": {
         "en": "Button to reset the gateway password to its default",
         "de": "Knopf zum Zurücksetzen des Gateway-Passworts auf den Standard"
@@ -55,7 +59,8 @@
       {
         "admin": ">=6.0.0"
       }
-    ]
+    ],
+    "messagebox": true
   },
   "native": {
     "host": "",
