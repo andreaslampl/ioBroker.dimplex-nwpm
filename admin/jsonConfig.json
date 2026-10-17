@@ -25,11 +25,19 @@
       "sm": 6,
       "md": 4
     },
+    "username": {
+      "type": "text",
+      "label": "User name",
+      "default": "mqtt",
+      "newLine": true,
+      "xs": 12,
+      "sm": 6,
+      "md": 4
+    },
     "password": {
       "type": "password",
       "label": "Gateway password",
       "help": "Heat pump display: Analytics → Hardware and software → Network → Gateway access (user name is always 'mqtt')",
-      "newLine": true,
       "xs": 12,
       "sm": 12,
       "md": 8

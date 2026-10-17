@@ -6,5 +6,6 @@
   "Gateway password": "Gateway-Passwort",
   "Heat pump display: Analytics → Hardware and software → Network → Gateway access (user name is always 'mqtt')": "Display der Wärmepumpe: Analyse → Hard- und Software → Netzwerk → Gateway-Zugang (Benutzername ist immer 'mqtt')",
   "Poll interval (seconds)": "Abfrageintervall (Sekunden)",
-  "Live values are pushed immediately; settings, counters and runtimes are polled": "Aktuelle Werte kommen sofort; Einstellungen, Zähler und Laufzeiten werden abgefragt"
+  "Live values are pushed immediately; settings, counters and runtimes are polled": "Aktuelle Werte kommen sofort; Einstellungen, Zähler und Laufzeiten werden abgefragt",
+  "User name": "Benutzername"
 }

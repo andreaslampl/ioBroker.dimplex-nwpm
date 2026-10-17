@@ -60,9 +60,11 @@ class DimplexNwpm extends utils.Adapter {
             // keep default
         }
 
+        const username = (this.config.username || '').trim() || 'mqtt';
         this.client = new NwpmClient({
             host,
-            password: this.config.password,
+            username,
+            password: String(this.config.password).trim(),
             port: Number(this.config.port) || DEFAULT_PORT,
             connect: this.mqttConnect,
         });
@@ -96,7 +98,7 @@ class DimplexNwpm extends utils.Adapter {
         });
         this.heatPump.on('update', topic => this.publish(topic).catch(err => this.log.warn(err.message)));
 
-        this.log.info(`Connecting to Dimplex gateway mqtt://${host}:${Number(this.config.port) || DEFAULT_PORT} (user "mqtt")`);
+        this.log.info(`Connecting to Dimplex gateway mqtt://${host}:${Number(this.config.port) || DEFAULT_PORT} (user "${username}")`);
         this.client.connect();
         const seconds = Math.max(15, Number(this.config.pollInterval) || 60);
         this.pollTimer = this.setInterval(() => this.poll(), seconds * 1000);
