@@ -70,6 +70,7 @@ class DimplexNwpm extends utils.Adapter {
 
         this.client.on('connect', () => {
             this.log.info(`Connected to Dimplex gateway ${host}`);
+            this.lastError = null;
             this.setState('info.connection', true, true);
             this.poll();
         });
@@ -83,9 +84,19 @@ class DimplexNwpm extends utils.Adapter {
         this.client.on('authFailed', err => {
             this.log.error(`${err.message}. Check the gateway password (heat pump display: Analytics → Hardware and software → Network → Gateway access)`);
         });
-        this.client.on('error', err => this.log.debug(`MQTT: ${err.message}`));
+        this.client.on('error', err => {
+            // Log each distinct connection problem once as a warning, repeats only in debug.
+            const msg = explainError(err, host, Number(this.config.port) || DEFAULT_PORT);
+            if (msg !== this.lastError) {
+                this.lastError = msg;
+                this.log.warn(msg);
+            } else {
+                this.log.debug(msg);
+            }
+        });
         this.heatPump.on('update', topic => this.publish(topic).catch(err => this.log.warn(err.message)));
 
+        this.log.info(`Connecting to Dimplex gateway mqtt://${host}:${Number(this.config.port) || DEFAULT_PORT} (user "mqtt")`);
         this.client.connect();
         const seconds = Math.max(15, Number(this.config.pollInterval) || 60);
         this.pollTimer = this.setInterval(() => this.poll(), seconds * 1000);
@@ -237,6 +248,17 @@ class DimplexNwpm extends utils.Adapter {
             callback();
         }
     }
+}
+
+function explainError(err, host, port) {
+    const hints = {
+        ECONNREFUSED: `${host} refuses connections on port ${port}. Is "Network → Home App" enabled on the heat pump and the port correct?`,
+        ETIMEDOUT: `${host}:${port} does not answer. Check the IP address and that ioBroker can reach the heat pump network.`,
+        EHOSTUNREACH: `${host} is not reachable. Check the IP address.`,
+        ENOTFOUND: `Host name ${host} cannot be resolved. Use the IP address.`,
+        ECONNRESET: `${host} closed the connection. Too many MQTT clients connected to the gateway, or wrong protocol?`,
+    };
+    return `MQTT connection problem: ${hints[err.code] || err.message}${err.code && hints[err.code] ? ` (${err.code})` : ''}`;
 }
 
 function role(dp) {
