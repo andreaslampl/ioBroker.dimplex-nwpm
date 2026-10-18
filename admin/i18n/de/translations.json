@@ -7,8 +7,5 @@
   "Heat pump display: Analytics → Hardware and software → Network → Gateway access (user name is always 'mqtt')": "Display der Wärmepumpe: Analyse → Hard- und Software → Netzwerk → Gateway-Zugang (Benutzername ist immer 'mqtt')",
   "Poll interval (seconds)": "Abfrageintervall (Sekunden)",
   "Live values are pushed immediately; settings, counters and runtimes are polled": "Aktuelle Werte kommen sofort; Einstellungen, Zähler und Laufzeiten werden abgefragt",
-  "User name": "Benutzername",
-  "Forgot the password?": "Passwort vergessen?",
-  "1. Make sure the IP address is entered and the instance is running. 2. Restart the heat pump (switch it off for 30 s). 3. Wait about 2 minutes, then press the button within 10 minutes. 4. After 'OK' enter the default password from the Dimplex Home app above and save.": "1. IP-Adresse muss eingetragen sein und die Instanz laufen. 2. Wärmepumpe neu starten (30 s stromlos). 3. Ca. 2 Minuten warten, dann innerhalb von 10 Minuten den Knopf drücken. 4. Nach 'OK' oben das Standardpasswort aus der Dimplex Home App eintragen und speichern.",
-  "Reset gateway password to default": "Gateway-Passwort auf Standard zurücksetzen"
+  "User name": "Benutzername"
 }

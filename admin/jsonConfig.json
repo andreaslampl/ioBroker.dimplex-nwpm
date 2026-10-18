@@ -52,30 +52,6 @@
       "xs": 12,
       "sm": 6,
       "md": 4
-    },
-    "resetHdr": {
-      "type": "header",
-      "text": "Forgot the password?",
-      "size": 3,
-      "newLine": true
-    },
-    "resetHelp": {
-      "type": "staticText",
-      "text": "1. Make sure the IP address is entered and the instance is running. 2. Restart the heat pump (switch it off for 30 s). 3. Wait about 2 minutes, then press the button within 10 minutes. 4. After 'OK' enter the default password from the Dimplex Home app above and save.",
-      "newLine": true,
-      "xs": 12
-    },
-    "resetPassword": {
-      "type": "sendTo",
-      "command": "resetPassword",
-      "label": "Reset gateway password to default",
-      "jsonData": "{\"host\": \"${data.host}\"}",
-      "showProcess": true,
-      "variant": "contained",
-      "newLine": true,
-      "xs": 12,
-      "sm": 6,
-      "md": 4
     }
   }
 }

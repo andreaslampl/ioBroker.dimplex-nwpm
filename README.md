@@ -50,28 +50,11 @@ iobroker add dimplex-nwpm
 | Gateway-Passwort | siehe oben, Benutzername ist immer `mqtt` |
 | Abfrageintervall | 60 s (Einstellungen, Zähler, Laufzeiten) |
 
-## Passwort vergessen? Zurücksetzen
+## Verbindung klappt nicht?
 
 Meldet das Log `Gateway rejected the credentials`, stimmt das Gateway-Passwort nicht.
-Es lässt sich auf den Standard zurücksetzen:
-
-1. Adapter **laufen lassen** (IP-Adresse muss eingetragen sein).
-2. **Wärmepumpe neu starten** (kurz stromlos machen). Das Gateway öffnet danach für etwa
-   **10 Minuten** den Reset-Port 61890.
-3. Nach ca. 2 Minuten in ioBroker unter *Objekte* den Knopf
-   **`dimplex-nwpm.0.control.resetPassword`** drücken.
-4. Ergebnis steht in **`info.lastResetResult`** und im Log:
-   - `OK …`: Standardpasswort (aus der Dimplex Home App) in der Instanz eintragen, speichern.
-   - `Reset port is closed`: Neustart wiederholen und innerhalb der 10 Minuten drücken.
-   - `Gateway answered …`: Diese Antwort bitte als Issue melden.
-
-Der Inhalt der Reset-Nachricht ist nicht offiziell dokumentiert, er ist vom Befehl
-`change_local_password` abgeleitet. **Achtung:** Bei einer System M wurde der Reset-Port 61890
-auch nach einem vollständigen Neustart nie geöffnet. Der Reset funktioniert also nicht bei allen
-Anlagen bzw. Softwareständen.
-
-**Vorher prüfen:** Wurde die SD-Karte bzw. das Gateway der Wärmepumpe getauscht, z. B. bei einem
-Service-Einsatz? Ein anderes Gateway hat ein anderes Passwort, die Anzeige in der App kann dann
+Wurde die SD-Karte bzw. das Gateway der Wärmepumpe getauscht (z. B. bei einem
+Service-Einsatz)? Ein anderes Gateway hat ein anderes Passwort, die Anzeige in der App kann dann
 zu einem anderen Gerät gehören.
 
 ## Datenpunkte
@@ -85,7 +68,7 @@ zu einem anderen Gerät gehören.
 | `energy.*` | Wärmemengen in kWh |
 | `statistics.*` | Laufzeiten in h und Verdichterstarts |
 | `settings.*` | **schreibbar**: Sollwerte, Heizkurve, Hysteresen, Party/Urlaub, PV-Überschuss … |
-| `control.*` | **schreibbar**: Betriebsmodus, Smart Grid, Sperre extern, `syncTime` (Uhr stellen), `resetPassword` |
+| `control.*` | **schreibbar**: Betriebsmodus, Smart Grid, Sperre extern, `syncTime` (Uhr stellen) |
 
 Schreibbare Werte werden auf die erlaubten Grenzen geprüft. Nach dem Schreiben liest der Adapter
 den Wert zurück und bestätigt ihn erst dann.

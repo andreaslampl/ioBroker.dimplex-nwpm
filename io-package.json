@@ -1,8 +1,12 @@
 {
   "common": {
     "name": "dimplex-nwpm",
-    "version": "0.2.1",
+    "version": "0.3.0",
     "news": {
+      "0.3.0": {
+        "en": "Removed the password reset (the reset port is not opened by the gateway)",
+        "de": "Passwort-Reset entfernt (der Reset-Port wird vom Gateway nicht geöffnet)"
+      },
       "0.2.1": {
         "en": "Reset button in the instance settings, no port conflict warning",
         "de": "Reset-Knopf in den Instanz-Einstellungen, keine falsche Port-Warnung mehr"
@@ -59,8 +63,7 @@
       {
         "admin": ">=6.0.0"
       }
-    ],
-    "messagebox": true
+    ]
   },
   "native": {
     "host": "",
@@ -364,36 +367,6 @@
         "role": "button",
         "read": false,
         "write": true
-      },
-      "native": {}
-    },
-    {
-      "_id": "control.resetPassword",
-      "type": "state",
-      "common": {
-        "name": {
-          "en": "Reset gateway password to default (within 10 min after heat pump restart)",
-          "de": "Gateway-Passwort auf Standard zurücksetzen (innerhalb 10 Min. nach Neustart der Wärmepumpe)"
-        },
-        "type": "boolean",
-        "role": "button",
-        "read": false,
-        "write": true
-      },
-      "native": {}
-    },
-    {
-      "_id": "info.lastResetResult",
-      "type": "state",
-      "common": {
-        "name": {
-          "en": "Result of the last password reset",
-          "de": "Ergebnis des letzten Passwort-Resets"
-        },
-        "type": "string",
-        "role": "text",
-        "read": true,
-        "write": false
       },
       "native": {}
     }
