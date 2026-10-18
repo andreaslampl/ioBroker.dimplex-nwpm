@@ -66,7 +66,13 @@ Es lässt sich auf den Standard zurücksetzen:
    - `Gateway answered …`: Diese Antwort bitte als Issue melden.
 
 Der Inhalt der Reset-Nachricht ist nicht offiziell dokumentiert, er ist vom Befehl
-`change_local_password` abgeleitet.
+`change_local_password` abgeleitet. **Achtung:** Bei einer System M wurde der Reset-Port 61890
+auch nach einem vollständigen Neustart nie geöffnet. Der Reset funktioniert also nicht bei allen
+Anlagen bzw. Softwareständen.
+
+**Vorher prüfen:** Wurde die SD-Karte bzw. das Gateway der Wärmepumpe getauscht, z. B. bei einem
+Service-Einsatz? Ein anderes Gateway hat ein anderes Passwort, die Anzeige in der App kann dann
+zu einem anderen Gerät gehören.
 
 ## Datenpunkte
 
