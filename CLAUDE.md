@@ -26,7 +26,7 @@ Dimplex Home app / display). No cloud.
 
 ## History / field experience
 
-- Tested on the owner's System M at 10.0.0.22. A "Not authorized" error turned out
+- Tested on the owner's System M (fixed LAN IP). A "Not authorized" error turned out
   to be a swapped SD card in the heat pump (other gateway, other password).
 - The documented reset port 61890 never opened on this System M, so the reset
   button was removed again in 0.3.0.
