@@ -31,6 +31,10 @@ Dimplex Home app / display). No cloud.
 - The documented reset port 61890 never opened on this System M, so the reset
   button was removed again in 0.3.0.
 
+- 0.3.1: owner could not find operating mode (control.operating_mode, 714) and its status. Poll ranges
+  that the gateway rejects (one unknown datapoint fails the whole range, e.g. 714-715u) were dropped
+  silently -> now read one by one, rejected singles are remembered until restart.
+
 ## Conventions
 
 - UI texts and README in German, code and comments in English.

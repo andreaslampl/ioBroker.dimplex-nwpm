@@ -107,3 +107,25 @@ test('setTime uses the gateway UTC offset', async () => {
     await hp.setTime(new Date('2026-10-17T10:00:05.123Z'));
     assert.equal(hp.client.time, '2026-10-17T12:00:05');
 });
+
+test('a rejected range is read datapoint by datapoint (operating mode 714 next to an unknown 715)', async () => {
+    const client = new FakeClient({ ...require('./fixtures/values.json'), '714i': 1 });
+    const asked = [];
+    const orig = client.getValues.bind(client);
+    client.getValues = async name => {
+        asked.push(name);
+        if (name === '714-715u' || name === '715u') {
+            throw new nwpm.DimplexRequestError(1, 'unknown datapoint');
+        }
+        return orig(name);
+    };
+    const hp = new nwpm.HeatPump(client, log);
+    await hp.update();
+    assert.equal(hp.value('operating_mode'), 1);
+    assert.ok(asked.includes('714u') && asked.includes('715u'));
+    // the rejected single datapoint is not asked again on the next poll
+    asked.length = 0;
+    await hp.update();
+    assert.ok(asked.includes('714-715u') && asked.includes('714u') && !asked.includes('715u'));
+});
+

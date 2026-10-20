@@ -1,8 +1,12 @@
 {
   "common": {
     "name": "dimplex-nwpm",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "news": {
+      "0.3.1": {
+        "en": "A datapoint range rejected by the gateway is read datapoint by datapoint, so e.g. the operating mode is not lost because of an unknown neighbour",
+        "de": "Lehnt das Gateway einen Bereich ab, werden die Datenpunkte einzeln gelesen – z. B. fehlt der Betriebsmodus nicht mehr wegen eines unbekannten Nachbarn"
+      },
       "0.3.0": {
         "en": "Removed the password reset (the reset port is not opened by the gateway)",
         "de": "Passwort-Reset entfernt (der Reset-Port wird vom Gateway nicht geöffnet)"

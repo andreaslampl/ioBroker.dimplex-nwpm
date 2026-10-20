@@ -1,6 +1,6 @@
 {
   "name": "iobroker.dimplex-nwpm",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Dimplex heat pumps (System M / NWPM Touch) via local MQTT for ioBroker",
   "author": "andreaslampl",
   "license": "MIT",
